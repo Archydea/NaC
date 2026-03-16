@@ -15,7 +15,8 @@ export default function Cell({ value, onClick, isWinning, disabled }) {
       disabled={!!value || disabled}
       aria-label={value || 'пустая клетка'}
     >
-      {value}
+      {value === 'X' && <span className="cell-x-mark">✕</span>}
+      {value === 'O' && <span className="cell-o-mark">○</span>}
     </button>
   );
 }

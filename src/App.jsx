@@ -6,14 +6,21 @@ import Board from './components/Board';
 import Profile from './components/Profile';
 
 export default function App() {
-  // Текущая страница: 'game' или 'profile'
   const [page, setPage] = useState('game');
 
   return (
     <ThemeProvider>
       <StatsProvider>
         <div className="app">
+          {/* Animated gradient background blobs */}
+          <div className="bg-blobs" aria-hidden="true">
+            <div className="blob blob-1" />
+            <div className="blob blob-2" />
+            <div className="blob blob-3" />
+          </div>
+
           <Header currentPage={page} onNavigate={setPage} />
+
           <main className="main">
             {page === 'game' ? <Board /> : <Profile />}
           </main>

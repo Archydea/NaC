@@ -11,9 +11,8 @@ function StatCard({ label, value, color }) {
 
 export default function Profile() {
   const { stats, resetStats } = useStats();
-  const { xWins, oWins, draws, totalGames } = stats;
+  const { xWins, oWins, draws, totalGames, xStreak, oStreak } = stats;
 
-  // Процент игр с победителем (не ничьих)
   const decidedRate =
     totalGames > 0 ? Math.round(((xWins + oWins) / totalGames) * 100) : 0;
 
@@ -25,7 +24,6 @@ export default function Profile() {
 
   return (
     <div className="profile-page">
-      {/* Шапка профиля */}
       <div className="profile-header">
         <div className="profile-avatar" aria-hidden="true">👤</div>
         <div className="profile-info">
@@ -34,37 +32,38 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Карточки статистики */}
       <div className="stats-grid">
-        <StatCard
-          label="Всего игр"
-          value={totalGames}
-          color="var(--primary)"
-        />
-        <StatCard
-          label="Победы X"
-          value={xWins}
-          color="var(--x-color)"
-        />
-        <StatCard
-          label="Победы O"
-          value={oWins}
-          color="var(--o-color)"
-        />
-        <StatCard
-          label="Ничьи"
-          value={draws}
-          color="var(--text-muted)"
-        />
+        <StatCard label="Всего игр"  value={totalGames} color="var(--primary)"    />
+        <StatCard label="Победы X"   value={xWins}      color="var(--x-color)"   />
+        <StatCard label="Победы O"   value={oWins}      color="var(--o-color)"   />
+        <StatCard label="Ничьи"      value={draws}      color="var(--text-muted)" />
       </div>
 
-      {/* Прогресс-бар: доля игр с победителем */}
+      {(xStreak >= 2 || oStreak >= 2) && (
+        <div className="streak-section">
+          {xStreak >= 2 && (
+            <div className="streak-item streak-x">
+              🔥 Серия X: <strong>{xStreak}</strong>
+            </div>
+          )}
+          {oStreak >= 2 && (
+            <div className="streak-item streak-o">
+              🔥 Серия O: <strong>{oStreak}</strong>
+            </div>
+          )}
+        </div>
+      )}
+
       {totalGames > 0 && (
         <div className="winrate-section">
-          <div className="winrate-label">
-            Игры с победителем (без ничьих)
-          </div>
-          <div className="winrate-bar" role="progressbar" aria-valuenow={decidedRate} aria-valuemin={0} aria-valuemax={100}>
+          <div className="winrate-label">Игры с победителем (без ничьих)</div>
+          <div
+            className="winrate-bar"
+            role="progressbar"
+            aria-valuenow={decidedRate}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
             <div className="winrate-fill" style={{ width: `${decidedRate}%` }} />
           </div>
           <div className="winrate-value">{decidedRate}%</div>

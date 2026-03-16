@@ -6,19 +6,19 @@ export default function Header({ currentPage, onNavigate }) {
   return (
     <header className="header">
       <div className="header-brand">
-        <span className="header-logo" aria-hidden="true">✕ ○</span>
-        <span className="header-title">Крестики-нолики</span>
+        <span className="header-logo" aria-hidden="true">✕○</span>
+        <span className="header-title">КиН</span>
       </div>
 
       <nav className="header-nav" aria-label="Навигация">
         <button
-          className={`nav-btn ${currentPage === 'game' ? 'active' : ''}`}
+          className={`nav-btn${currentPage === 'game' ? ' active' : ''}`}
           onClick={() => onNavigate('game')}
         >
           Игра
         </button>
         <button
-          className={`nav-btn ${currentPage === 'profile' ? 'active' : ''}`}
+          className={`nav-btn${currentPage === 'profile' ? ' active' : ''}`}
           onClick={() => onNavigate('profile')}
         >
           Профиль
@@ -28,8 +28,8 @@ export default function Header({ currentPage, onNavigate }) {
       <button
         className="theme-toggle"
         onClick={toggleTheme}
-        title={theme === 'light' ? 'Включить тёмную тему' : 'Включить светлую тему'}
-        aria-label="Переключить тему"
+        title={theme === 'light' ? 'Тёмная тема' : 'Светлая тема'}
+        aria-label={theme === 'light' ? 'Переключить на тёмную тему' : 'Переключить на светлую тему'}
       >
         {theme === 'light' ? '🌙' : '☀️'}
       </button>
